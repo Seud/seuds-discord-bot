@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+PWD=/home/bot/code
+# Checks the bot every 10 minutes
+*/10 * * * * bot ./launch.sh start
