@@ -7,7 +7,7 @@ import traceback
 import logging
 import argparse
 
-from bot import Bot
+from sdb_bot import Bot
 
 # Name of this script
 ME = os.path.basename(__file__)
