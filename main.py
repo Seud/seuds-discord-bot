@@ -6,7 +6,14 @@ import re
 import traceback
 import logging
 import argparse
+import signal
+import asyncio
 
+import sdb_log
+from sdb_log import error
+from sdb_log import warn
+from sdb_log import info
+from sdb_log import debug
 from sdb_bot import Bot
 
 # Name of this script
@@ -23,45 +30,6 @@ LOG_DIR = '/home/bot/discord/log/'
 
 # Run directory
 RUN_DIR = '/home/bot/discord/'
-
-# -----
-
-# Talking much ?
-VERBOSE = False
-
-# Or not ?
-QUIET = False
-
-# -----
-
-
-
-# --- BASIC FUNCTIONS ---
-
-# Stop the program on error and log it
-
-# Crashes the program, always shown
-def error(err_str):
-  logging.error(err_str)
-  print("ERROR : %s" % err_str)
-  sys.exit(1)
-
-# Always shown, use for potential problems
-def warn(warn_str):
-  logging.warning(warn_str)
-  print("Warning : %s" % warn_str)
-
-# Not shown with -q
-def info(info_str):
-  logging.info(info_str)
-  if not QUIET:
-    print(info_str)
-
-# Only shown with -v
-def debug(debug_str):
-  if VERBOSE:
-    logging.debug(debug_str)
-    print(debug_str)
 
 # --- GENERIC FUNCTIONS ---
 
@@ -92,13 +60,11 @@ def parse_args():
   args = parser.parse_args()
   
   if args.verbose:
-    global VERBOSE
-    VERBOSE = True
+    sdb_log.VERBOSE = True
     debug("-v option activated")
     
   if args.quiet:
-    global QUIET
-    QUIET = True
+    sdb_log.QUIET = True
     debug("-q option activated")
 
 # True main function, executes init and end script tasks and wraps exceptions
@@ -114,16 +80,11 @@ def main():
     parse_args()
     
     # Name checking
-    if CLEAN_ME:
-      info("Script starting...")
-    else:
+    if not CLEAN_ME:
       error("Error during name cleaning, check that the script ends up with .py")
     
     # Main script logic
     main_script()
-    
-    # Yay, script over !
-    info('Script finished !')
     
   except Exception as e:
     # Log exception and signal Zabbix something's wrong
@@ -131,10 +92,30 @@ def main():
 
 # --- LOGIC FUNCTIONS ---
 
+def disconnect(signum, frame):
+  raise KeyboardInterrupt
+
 # Main script function
 def main_script():
+  
+  signal.signal(signal.SIGINT, disconnect)
+  signal.signal(signal.SIGTERM, disconnect)
+  
   bot = Bot()
-  bot.run()
+  loop = asyncio.get_event_loop()
+  
+  try:
+    loop.run_until_complete(bot.run())
+  except KeyboardInterrupt:
+    info("Received Interrupt, exiting")
+    loop.run_until_complete(bot.logout())
+  except Exception as e:
+    error("An uncaught exception occured\n%s" % ''.join(traceback.format_exception(e.__class__, e, sys.exc_info()[2])))
+    loop.run_until_complete(bot.logout())
+  finally:
+    loop.close()
+  
+  sys.exit(0)
 
 if __name__ == "__main__":
   main()

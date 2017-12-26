@@ -1,8 +1,11 @@
 import os
 import sys
 import signal
+import asyncio
+from asyncio import wait
 import discord
 
+import sdb_log
 from sdb_log import error
 from sdb_log import warn
 from sdb_log import info
@@ -15,14 +18,10 @@ class Bot:
   def __init__(self):
     self.token = os.getenv('BOT_TOKEN')
     self.client = discord.Client()
-    signal.signal(signal.SIGINT, self.disconnect)
-    signal.signal(signal.SIGTERM, self.disconnect)
   
-  def disconnect(self, signum, frame):
-    self.client.close()
-    self.client.logout()
-    sys.exit(0)
-  
-  def run(self):
+  async def run(self):
     self.client = discord.Client()
-    self.client.run(self.token)
+    await self.client.start(self.token)
+  
+  async def logout(self):
+    await self.client.logout()
