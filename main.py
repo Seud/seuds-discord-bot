@@ -9,12 +9,13 @@ import argparse
 import signal
 import asyncio
 
+import sdb_cfg
 import sdb_log
 from sdb_log import error
 from sdb_log import warn
 from sdb_log import info
 from sdb_log import debug
-from sdb_bot import Bot
+from sdb_bot import SDBot
 
 # Name of this script
 ME = os.path.basename(__file__)
@@ -98,10 +99,15 @@ def disconnect(signum, frame):
 # Main script function
 def main_script():
   
+  # Read config
+  sdb_cfg.read_cfg()
+  
+  # Register signals
   signal.signal(signal.SIGINT, disconnect)
   signal.signal(signal.SIGTERM, disconnect)
   
-  bot = Bot()
+  # Loop is manually managed
+  bot = SDBot()
   loop = asyncio.get_event_loop()
   
   try:
