@@ -17,19 +17,19 @@ from sdb_log import info
 from sdb_log import debug
 from sdb_bot import SDBot
 
-# Name of this script
+# (str) Name of this script
 ME = os.path.basename(__file__)
 
-# Cleaned name of the script
+# (str) Cleaned name of the script
 CLEAN_ME = re.sub('.py', '', ME)
 
-# Log level
+# (str) Log level
 LOG_LEVEL = 'DEBUG'
 
-# Log directory
+# (str) Log directory
 LOG_DIR = '/home/bot/discord/log/'
 
-# Run directory
+# (str) Run directory
 RUN_DIR = '/home/bot/discord/'
 
 # --- GENERIC FUNCTIONS ---
