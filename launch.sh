@@ -1,4 +1,3 @@
-CRONFILE='/etc/cron.d/seud-discord'
 PROGNAME="Seud's Discord Bot"
 PIDFILE='/home/bot/discord/discord.pid'
 LOGFILE='/home/bot/discord/log/main.log'
