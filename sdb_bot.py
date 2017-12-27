@@ -81,5 +81,5 @@ class SDBot:
       command = ''
     
     # Execute the command !
-    info("Received command : {0} with args {1}".format(command, full_command))
+    info("Received command : '{0}' with args {1}".format(command, full_command))
     await sdb.commands.command(self.client, command, full_command, orig_channel, message)

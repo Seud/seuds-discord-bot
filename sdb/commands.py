@@ -65,6 +65,10 @@ class CommandData:
   async def say(self, text, **kwargs):
     em = discord.Embed(type='rich', description=text, **kwargs)
     await self.client.send_message(self.channel, embed=em)
+  
+  # Send typing option - useful for longer commands
+  async def send_typing(self):
+    await self.client.send_typing(self.channel)
 
 # Metadata about a command
 class Command:
@@ -177,6 +181,7 @@ Bot Github : {github}
 # Generates a phrase !
 async def cphrase(data):
   # Retrieve a phrase from the generator
+  await data.send_typing()
   phrase = get_phrase()
   
   # Say the phrase !
