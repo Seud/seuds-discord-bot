@@ -146,7 +146,7 @@ async def command(client, command_name, args, channel, message):
 
 # Triggers whenever an invalid command is detected
 async def cinvalid(data):
-  await data.say("Invalid command specified ! Use {p} help to get the list of commands".format(p=sdb_cfg.cfg['bot.command']), color=discord.Color.red())
+  await data.say("Invalid command specified ! Use **{p} help** to get the list of commands".format(p=sdb_cfg.cfg['bot.command']), color=discord.Color.red())
   return
 
 # Gives the list of functions of the bot
