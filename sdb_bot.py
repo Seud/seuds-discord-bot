@@ -10,16 +10,10 @@ from sdb_log import debug
 
 import sdb.commands
 
-<<<<<<< HEAD
 # Wrapper class for the bot
 class SDBot:
   
   # (discord.Client) Client instance
-=======
-class SDBot:
-  
-  # Client instance
->>>>>>> d0f8a875591f77f9c18f7067e1a25c1e89c6d249
   client = ''
   
   # Initiate the bot
@@ -55,11 +49,7 @@ class SDBot:
   # Fires when the bot reads a new message
   # ARG Message (Discord.Message) : The received message
   async def on_message(self, message):
-<<<<<<< HEAD
     debug("Message caught...")
-=======
-    debug("Message caught !")
->>>>>>> d0f8a875591f77f9c18f7067e1a25c1e89c6d249
     
     # Do not parse self
     if message.author == self.client.user:
@@ -81,7 +71,6 @@ class SDBot:
     
     orig_channel = message.channel
     full_command = mtext.lower().split()
-<<<<<<< HEAD
     # Pop the prefix
     full_command.pop(0)
     
@@ -94,17 +83,3 @@ class SDBot:
     # Execute the command !
     info("Received command : {0} with args {1}".format(command, full_command))
     await sdb.commands.command(self.client, command, full_command, orig_channel, message)
-=======
-    
-    # TODO Commands !
-    if len(full_command) >= 2:
-      command = full_command.pop(0)
-    else:
-      await self.client.send_message(orig_channel, "No command specified ! Use '%s help' to see the list of available commands" % prefix)
-      return
-    
-    await sdb.commands.command(client, command, full_command, message)
-    
-    debug("Received command : %s" % full_command)
-    command
->>>>>>> d0f8a875591f77f9c18f7067e1a25c1e89c6d249
