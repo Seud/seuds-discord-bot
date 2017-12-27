@@ -1,4 +1,7 @@
 bot.command: "!sd"
+<<<<<<< HEAD
 credits.author_id: 232950747053031425
 credits.github: "https://github.com/Seud/seuds-discord-bot"
+=======
+>>>>>>> d0f8a875591f77f9c18f7067e1a25c1e89c6d249
 phrases.url: "http://enneagon.org/phrases"

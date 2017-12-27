@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+CRONFILE='/etc/cron.d/seud-discord'
+>>>>>>> d0f8a875591f77f9c18f7067e1a25c1e89c6d249
 PROGNAME="Seud's Discord Bot"
 PIDFILE='/home/bot/discord/discord.pid'
 LOGFILE='/home/bot/discord/log/main.log'

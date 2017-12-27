@@ -17,6 +17,7 @@ from sdb_log import info
 from sdb_log import debug
 from sdb_bot import SDBot
 
+<<<<<<< HEAD
 # (str) Name of this script
 ME = os.path.basename(__file__)
 
@@ -30,6 +31,21 @@ LOG_LEVEL = 'DEBUG'
 LOG_DIR = '/home/bot/discord/log/'
 
 # (str) Run directory
+=======
+# Name of this script
+ME = os.path.basename(__file__)
+
+# Cleaned name of the script
+CLEAN_ME = re.sub('.py', '', ME)
+
+# Log level
+LOG_LEVEL = 'DEBUG'
+
+# Log directory
+LOG_DIR = '/home/bot/discord/log/'
+
+# Run directory
+>>>>>>> d0f8a875591f77f9c18f7067e1a25c1e89c6d249
 RUN_DIR = '/home/bot/discord/'
 
 # --- GENERIC FUNCTIONS ---
